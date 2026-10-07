@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="godot">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Godot 4.x — Справочник разработчика</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Custom Titlebar -->
+  <header class="titlebar">
+    <div class="titlebar-drag">
+      <div class="titlebar-brand">
+        <div class="brand-icon-wrap" id="brand-icon-wrap">
+          <svg class="godot-icon" viewBox="0 0 24 24" width="20" height="20" fill="none">
+            <rect width="24" height="24" rx="5" fill="currentColor"/>
+            <circle cx="8" cy="11" r="2" fill="#ffffff"/>
+            <circle cx="16" cy="11" r="2" fill="#ffffff"/>
+            <path d="M7 16c1.5 1.5 8.5 1.5 10 0" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+            <rect x="11" y="4" width="2" height="3" rx="1" fill="#ffffff"/>
+            <circle cx="12" cy="3" r="1.5" fill="#ffffff"/>
+          </svg>
+        </div>
+        <span class="app-title" id="lbl-app-title">Godot 4.x</span>
+        <span class="app-subtitle" id="lbl-app-subtitle">Справочник</span>
+      </div>
+    </div>
+
+    <div class="titlebar-controls">
+      <button class="tb-btn tb-settings" id="btn-open-settings" title="Настройки (Тема и Язык)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+      </button>
+      <button class="tb-btn tb-minimize" id="btn-minimize" title="Свернуть">
+        <svg width="12" height="12" viewBox="0 0 12 12"><rect y="5" width="12" height="2" fill="currentColor"/></svg>
+      </button>
+      <button class="tb-btn tb-maximize" id="btn-maximize" title="Развернуть">
+        <svg width="12" height="12" viewBox="0 0 12 12"><rect x="1" y="1" width="10" height="10" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+      </button>
+      <button class="tb-btn tb-close" id="btn-close" title="Закрыть">
+        <svg width="12" height="12" viewBox="0 0 12 12"><line x1="1" y1="1" x2="11" y2="11" stroke="currentColor" stroke-width="1.5"/><line x1="11" y1="1" x2="1" y2="11" stroke="currentColor" stroke-width="1.5"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-search">
+        <div class="search-input-wrapper">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="search-input" placeholder="Поиск по темам, коду, тегам..." autocomplete="off" spellcheck="false">
+          <span class="search-shortcut">Ctrl+K</span>
+          <button class="btn-clear-search" id="btn-clear-search" title="Очистить" style="display:none;">✕</button>
+        </div>
+
+        <!-- Quick Keywords Bar -->
+        <div class="quick-keywords" id="quick-keywords">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Interactive Node Domain Filter -->
+      <div class="node-filter-container">
+        <div class="node-filter-header">
+          <span class="node-filter-label" id="lbl-node-filter">Тип узла:</span>
+          <span class="node-filter-current" id="lbl-node-current">Все</span>
+        </div>
+        <div class="node-filter-bar" id="node-filter-bar">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Categories Pills -->
+      <nav class="categories-nav" id="categories-nav">
+        <!-- Rendered by JS -->
+      </nav>
+
+      <div class="articles-list-header">
+        <span class="articles-list-title" id="articles-list-title">Статьи</span>
+        <span class="articles-counter" id="articles-counter">0</span>
+      </div>
+
+      <div class="articles-list" id="articles-list">
+        <!-- Rendered by JS -->
+      </div>
+    </aside>
+
+    <!-- Content Viewport -->
+    <main class="content-viewport">
+      <div class="content-container" id="content-container">
+        <!-- Article loaded here -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Settings Modal (Theme + Language) -->
+  <div class="modal-overlay" id="settings-modal" style="display:none;">
+    <div class="settings-modal-card">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <h2 id="lbl-settings-title">Настройки оформления и языка</h2>
+        </div>
+        <button class="modal-close-btn" id="btn-close-settings" title="Закрыть">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Section: Themes -->
+        <div class="settings-group">
+          <label class="settings-group-label" id="lbl-theme-setting">Стиль интерфейса</label>
+          <div class="theme-cards-grid">
+            <!-- Theme 1: Godot Classic -->
+            <div class="theme-card active" data-theme-id="godot">
+              <div class="theme-preview godot-preview">
+                <span class="preview-dot" style="background:#478cbf"></span>
+                <span class="preview-dot" style="background:#5bbcd6"></span>
+                <span class="preview-dot" style="background:#202530"></span>
+              </div>
+              <div class="theme-info">
+                <div class="theme-name" id="lbl-theme-godot-name">🔷 Classic Godot</div>
+                <div class="theme-desc" id="lbl-theme-godot-desc">Тёмный сине-серый технологичный стиль редактора</div>
+              </div>
+            </div>
+
+            <!-- Theme 2: Desierto Mexicano -->
+            <div class="theme-card" data-theme-id="mexico">
+              <div class="theme-preview mexico-preview">
+                <span class="preview-dot" style="background:#e67e22"></span>
+                <span class="preview-dot" style="background:#2ecc71"></span>
+                <span class="preview-dot" style="background:#2a201b"></span>
+              </div>
+              <div class="theme-info">
+                <div class="theme-name" id="lbl-theme-mexico-name">🌵 Desierto Mexicano</div>
+                <div class="theme-desc" id="lbl-theme-mexico-desc">Тёплый закат, песок, кактусы и ночная пустыня</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section: Language -->
+        <div class="settings-group">
+          <label class="settings-group-label" id="lbl-lang-setting">Язык справочника и интерфейса</label>
+          <div class="lang-cards-grid">
+            <button class="lang-btn active" data-lang-code="ru">
+              <span class="flag-icon">🇷🇺</span>
+              <span class="lang-text">Русский</span>
+            </button>
+            <button class="lang-btn" data-lang-code="en">
+              <span class="flag-icon">🇬🇧</span>
+              <span class="lang-text">English</span>
+            </button>
+            <button class="lang-btn" data-lang-code="es-mx">
+              <span class="flag-icon">🇲🇽</span>
+              <span class="lang-text">Español (México) 🌵</span>
+            </button>
+            <button class="lang-btn" data-lang-code="es">
+              <span class="flag-icon">🇪🇸</span>
+              <span class="lang-text">Español (España)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-primary" id="btn-save-settings">Готово</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+    <span id="toast-message">Уведомление</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

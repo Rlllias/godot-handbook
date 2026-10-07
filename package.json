@@ -1,0 +1,32 @@
+{
+  "name": "godot-handbook",
+  "version": "1.0.0",
+  "description": "Справочник и база знаний по Godot 4.x с поиском и подсветкой GDScript",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win --dir",
+    "dist": "electron-builder --win"
+  },
+  "keywords": [
+    "godot",
+    "gdscript",
+    "handbook",
+    "reference"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^35.7.5",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.godot.handbook",
+    "productName": "Godot 4 Handbook",
+    "icon": "icon.ico",
+    "win": {
+      "target": "nsis",
+      "icon": "icon.ico"
+    }
+  }
+}
